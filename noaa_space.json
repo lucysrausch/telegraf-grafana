@@ -1,0 +1,505 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 11,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "default": true,
+        "type": "influxdb",
+        "uid": "bdwl2gffu9c74d"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 9,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "orange",
+                "value": 6
+              },
+              {
+                "color": "red",
+                "value": 7
+              },
+              {
+                "color": "purple",
+                "value": 8
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 10,
+        "x": 0,
+        "y": 0
+      },
+      "id": 5,
+      "interval": "1h",
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.9,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "text": {
+          "valueSize": 36
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 200
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "alias": "Kp Index",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "bdwl2gffu9c74d"
+          },
+          "fill": "null",
+          "groupBy": [
+            {
+              "params": [
+                "3h"
+              ],
+              "type": "time"
+            }
+          ],
+          "measurement": "exec_kindex",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Estimated Planetary K Index",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "bdwl2gffu9c74d"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 9,
+        "x": 10,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        .legend {\n            display: flex;\n            width: 100%;\n            text-align: center;\n            font-family: Arial, sans-serif;\n        }\n        .legend div {\n            flex: 1; /* Equal width for each section */\n            color: white;\n            padding: 0px;\n            font-size: 12px;\n        }\n        .green { background-color: #4CAF50; } /* Kp < 5 */\n        .yellow { background-color: #FFEB3B; color: black; } /* Kp = 5 (G1) */\n        .orange { background-color: #FF9800; } /* Kp = 6 (G2) */\n        .darkorange { background-color: #FF5722; } /* Kp = 7 (G3) */\n        .red { background-color: #F44336; } /* Kp = 8, 9- (G4) */\n        .darkred { background-color: #B71C1C; } /* Kp = 9o (G5) */\n    </style>\n</head>\n<body>\n    <div class=\"legend\">\n        <div class=\"green\">Kp < 5</div>\n        <div class=\"yellow\">Kp = 5 (G1)</div>\n        <div class=\"orange\">Kp = 6 (G2)</div>\n        <div class=\"darkorange\">Kp = 7 (G3)</div>\n        <div class=\"red\">Kp = 8, 9- (G4)</div>\n        <div class=\"darkred\">Kp = 9o (G5)</div>\n    </div>\n</body>\n</html>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "bdwl2gffu9c74d"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "NOAA Scales Geomagnetic Storms Legend",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "influxdb",
+        "uid": "bdwl2gffu9c74d"
+      },
+      "gridPos": {
+        "h": 28,
+        "w": 9,
+        "x": 10,
+        "y": 2
+      },
+      "id": 4,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "bdwl2gffu9c74d"
+          },
+          "groupBy": [],
+          "measurement": "noaa_forecast",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "NOAA 3-Day Forecast",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "influxdb",
+        "uid": "bdwl2gffu9c74d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0.3,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "log": 10,
+              "type": "log"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.1
+              },
+              {
+                "color": "red",
+                "value": 0.5
+              }
+            ]
+          },
+          "unit": "sci"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "exec_protonflux.value"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.scaleDistribution",
+                "value": {
+                  "log": 10,
+                  "type": "log"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "Proton Flux [MeV]"
+              },
+              {
+                "id": "custom.scaleDistribution",
+                "value": {
+                  "log": 10,
+                  "type": "log"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "exec_electonflux.value"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Electron Flux [MeV]"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "bdwl2gffu9c74d"
+          },
+          "groupBy": [],
+          "measurement": "exec_protonflux",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "bdwl2gffu9c74d"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "exec_electonflux",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "GOES Proton Flux and Electron Flux",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": {
+        "h": 11,
+        "w": 4,
+        "x": 6,
+        "y": 4
+      },
+      "id": 9,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<img src='https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png' alt='WSA-Enlil Solar Wind Prediction' width='100%' height='100%'/>",
+        "mode": "html"
+      },
+      "pluginVersion": "11.2.0",
+      "title": "Tonight's Aurora Viewline Forecast",
+      "type": "text"
+    },
+    {
+      "gridPos": {
+        "h": 15,
+        "w": 10,
+        "x": 0,
+        "y": 15
+      },
+      "id": 6,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<div id=\"animationContainer\">\n  <img id=\"animationFrame\" src=\"\" alt=\"WSA-Enlil Animation Frame\">\n</div>\n\n<script>\n  const baseUrl = \"https://services.swpc.noaa.gov\";\n  const jsonUrl = \"https://services.swpc.noaa.gov/products/animations/enlil.json\";\n  let images = [];\n  let currentIndex = 0;\n\n  function preloadImages(urls) {\n    const loadedImages = [];\n    urls.forEach(url => {\n      const img = new Image();\n      img.src = url;\n      img.onload = () => {\n        loadedImages.push(img);\n        if (loadedImages.length === urls.length) {\n          images = loadedImages; // Assign fully loaded images to the global array\n          changeImage(); // Start animation after all images are loaded\n        }\n      };\n    });\n  }\n\n  function changeImage() {\n    if (images.length > 0) {\n      document.getElementById('animationFrame').src = images[currentIndex].src;\n      document.getElementById('animationFrame').alt = \"WSA-Enlil Image for \" + images[currentIndex].src.split('/').pop();\n      currentIndex = (currentIndex + 1) % images.length;\n      setTimeout(changeImage, 100); // Change image every second\n    }\n  }\n\n  fetch(jsonUrl)\n    .then(response => response.json())\n    .then(data => {\n      const imageUrls = data.map(item => baseUrl + item.url);\n      preloadImages(imageUrls);\n    })\n    .catch(error => console.error('Error fetching images:', error));\n</script>\n\n<style>\n  #animationContainer {\n    width: 100%;\n    height: auto;\n    text-align: center;\n  }\n  #animationFrame {\n    width: 100%;\n    height: auto;\n  }\n</style>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "11.2.0",
+      "title": "WSA-Enlil Prediction",
+      "type": "text"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Space Weather Dashboard",
+  "uid": "cdwmu0g0qqdc0a",
+  "version": 15,
+  "weekStart": ""
+}
