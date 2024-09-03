@@ -3,7 +3,7 @@
 ## Overview
 This repository contains the necessary configurations and resources to set up a Grafana dashboard displaying 24-Hour Observed Maximums for space weather conditions based on NOAA scales. The dashboard provides a visual representation of the current space weather, including geomagnetic storms, solar radiation storms, and radio blackouts, updated dynamically from NOAA data.
 
-![NOAA Space Weather Dashboard](screenshot/Screenshot_2024-09-02_at_20.22.47.png)
+![NOAA Space Weather Dashboard](screenshot/Screenshot 2024-09-02 at 20.22.47.png)
 
 ## Setup Instructions
 
